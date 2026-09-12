@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "exl-enterprise-rag"
+version = "0.1.0"
+description = "Enterprise RAG over the GitLab Handbook corpus for EXL internal use"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+authors = [
+    { name = "k17hawk", email = "kumardahal536@gmail.com" }
+]
+
+
