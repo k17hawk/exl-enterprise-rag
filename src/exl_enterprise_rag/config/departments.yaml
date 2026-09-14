@@ -1,0 +1,60 @@
+# =====================================================================
+# Department allowlist and folder mapping.
+#
+# SOURCE OF TRUTH for what gets ingested. Must stay in sync with:
+#   1. The 9 partial HNSW indexes in migrations/001_initial_schema.sql
+#   2. The role_department_access seed data (19 rows in the DB)
+#   3. The 9 canonical department names below
+# =====================================================================
+
+departments:
+  - company
+  - engineering
+  - security
+  - people-group
+  - finance
+  - legal
+  - sales
+  - marketing
+  - product
+
+folder_to_department:
+  company:                company
+  engineering:            engineering
+  security:               security
+  people-group:           people-group
+  people-policies:        people-group
+  total-rewards:          people-group
+  finance:                finance
+  legal:                  legal
+  sales:                  sales
+  marketing:              marketing
+  product:                product
+  product-development:    product
+
+excluded_folders:
+  - about
+  - acquisitions
+  - alliances
+  - board-meetings
+  - business-technology
+  - ceo
+  - communication
+  - customer-experience
+  - customer-success
+  - enterprise-data
+  - entity
+  - eta
+  - eba
+  - hiring
+  - it
+  - job-description-library
+  - labor-and-employment-notices
+  - leadership
+  - resellers
+  - solutions-architects
+  - support
+  - teamops
+  - tools-and-tips
+  - upstream-studios
+  - values
