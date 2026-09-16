@@ -17,15 +17,6 @@ from pydantic import BaseModel, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-# ---------------------------------------------------------------
-# Paths
-# ---------------------------------------------------------------
-
-# settings.py is at src/exl_enterprise_rag/config/settings.py
-# parents[0] = config/
-# parents[1] = exl_enterprise_rag/
-# parents[2] = src/
-# parents[3] = repo root
 REPO_ROOT = Path(__file__).resolve().parents[3]
 CONFIG_DIR = Path(__file__).resolve().parent
 DEPARTMENTS_YAML = CONFIG_DIR / "departments.yaml"
@@ -172,3 +163,16 @@ def reset_caches() -> None:
     global _settings, _departments
     _settings = None
     _departments = None
+
+
+
+class AppSettings(BaseSettings):
+    database_url: str
+    anthropic_api_key: str
+    answer_model: str = "claude-sonnet-5"
+    rerank_floor: float = 0.45
+    retrieve_wide: int = 25
+    answer_max_tokens: int = 1024
+
+    model_config = {"env_file": ".env", "env_prefix": "RAG_",
+                    "extra": "ignore"}

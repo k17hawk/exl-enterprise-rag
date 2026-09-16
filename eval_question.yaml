@@ -1,0 +1,129 @@
+# Golden question set — seed (expand toward 50-100 over time).
+#
+# Categories:
+#   single-doc   : answer lives in one document
+#   multi-dept   : evidence spans departments (tests fusion + exec role)
+#   no-answer    : not in the corpus at all — correct behavior is refusal
+#   acl          : answer EXISTS but the asking role must not see it —
+#                  correct behavior is refusal (the permission test)
+#
+# expected_doc_paths: source_path prefixes that count as a retrieval hit
+# (prefix match, so a directory covers all files under it).
+
+- question: "What is the parental leave policy?"
+  ask_as_role: hr_partner
+  category: single-doc
+  expect_refusal: false
+  expected_doc_paths:
+    - "content/handbook/people-group/benefits"
+    - "content/handbook/people-group/leave-of-absence"
+  expected_answer: >
+    16 weeks of paid parental leave for any team member who becomes a
+    parent through childbirth or adoption, available from day one, to be
+    used within the child's first year; country-specific statutory
+    variants exist (US, Australia, New Zealand).
+
+- question: "How much can I spend on home office equipment?"
+  ask_as_role: finance_analyst
+  category: single-doc
+  expect_refusal: false
+  expected_doc_paths:
+    - "content/handbook/finance/expenses"
+  expected_answer: >
+    Office equipment is reimbursable under the expense policy's
+    non-travel-related expenses provisions, subject to the stated
+    limits and manager approval where required.
+
+- question: "Do I need to purchase the collision damage waiver when renting a car for company travel?"
+  ask_as_role: finance_analyst
+  category: single-doc
+  expect_refusal: false
+  expected_doc_paths:
+    - "content/handbook/finance/expenses"
+  expected_answer: >
+    No for US/Canada rentals — GitLab purchases coverage for damage to
+    rented vehicles; but the waiver SHOULD be purchased when renting
+    outside the US and Canada, and Mexico liability coverage must be
+    bought when driving into Mexico.
+
+- question: "What is the merge request review process?"
+  ask_as_role: engineer
+  category: single-doc
+  expect_refusal: false
+  expected_doc_paths:
+    - "content/handbook/engineering"
+  expected_answer: >
+    Merge requests are reviewed per the engineering code review
+    guidelines: author opens the MR, reviewers and maintainers review
+    and approve before merge.
+
+- question: "What happens to compensation when a team member transfers to a different department?"
+  ask_as_role: exec
+  category: multi-dept
+  expect_refusal: false
+  expected_doc_paths:
+    - "content/handbook/people-group"
+    - "content/handbook/finance"
+  expected_answer: >
+    Internal transfers follow the promotions-and-transfers process
+    involving People, the receiving team, and compensation review per
+    the compensation framework.
+
+- question: "What security requirements apply when engineering deploys a new service?"
+  ask_as_role: engineer
+  category: multi-dept
+  expect_refusal: false
+  expected_doc_paths:
+    - "content/handbook/security"
+    - "content/handbook/engineering"
+  expected_answer: >
+    New services go through security review requirements (e.g.
+    application security review / approval processes) defined by the
+    Security division alongside engineering's production readiness.
+
+- question: "What is the executive compensation policy?"
+  ask_as_role: finance_analyst
+  category: no-answer
+  expect_refusal: true
+  expected_doc_paths: []
+  expected_answer: null
+
+- question: "What is the office cafeteria menu this week?"
+  ask_as_role: hr_partner
+  category: no-answer
+  expect_refusal: true
+  expected_doc_paths: []
+  expected_answer: null
+
+- question: "How do I configure the on-call escalation for the database team in PagerDuty?"
+  ask_as_role: finance_analyst
+  category: acl
+  expect_refusal: true
+  expected_doc_paths: []          # exists under engineering — but not for this role
+  expected_answer: null
+
+- question: "What is the parental leave policy?"
+  ask_as_role: finance_analyst
+  category: acl
+  expect_refusal: true
+  expected_doc_paths: []          # exists under people-group — not for this role
+  expected_answer: null
+
+- question: "What is the anti-harassment policy?"
+  ask_as_role: engineer
+  category: acl
+  expect_refusal: true
+  expected_doc_paths: []          # people-group content, engineer can't see it
+  expected_answer: null
+
+- question: "How does GitLab bill customers in Germany?"
+  ask_as_role: finance_analyst
+  category: single-doc
+  expect_refusal: false
+  expected_doc_paths:
+    - "content/handbook/finance/accounting"
+  expected_answer: >
+    Billing entity depends on how the order originated: web-direct
+    portal subscriptions are placed on the US entity, while
+    sales-assisted orders invoiced by the DE entity keep add-ons on DE;
+    add-on order forms must match the original invoice entity.
